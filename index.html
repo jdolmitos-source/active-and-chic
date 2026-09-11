@@ -30,28 +30,26 @@
 
     header {
       text-align: center;
-      padding: 24px 16px 12px;
+      padding: 24px 16px 14px;
       background: #ffffff;
       border-bottom: 1px solid #e5e9e7;
     }
 
-    .logo-badge {
-      display: inline-block;
+    .logo-img {
+      width: 125px;
+      height: 125px;
+      object-fit: cover;
+      border-radius: 50%;
       border: 2px solid var(--black);
-      border-radius: 50px;
-      padding: 6px 18px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
-      background: #f0fdf8;
-      color: var(--black);
-      margin-bottom: 8px;
-      box-shadow: 0 2px 8px rgba(126, 248, 200, 0.3);
+      box-shadow: 0 4px 14px rgba(126, 248, 200, 0.35);
+      margin: 0 auto 10px;
+      display: block;
     }
 
     header p {
       font-size: 0.85rem;
       color: var(--text-muted);
+      letter-spacing: 0.5px;
     }
 
     /* Filtros por Categoría */
@@ -178,22 +176,22 @@
 <body>
 
   <header>
-    <div class="logo-badge">ACTIVE & CHIC</div>
+    <img src="logo.png" alt="Active & Chic Logo" class="logo-img">
     <p>Athleisure & Elegancia Urbana</p>
   </header>
 
   <div class="filters">
-    <button class="filter-btn active" onclick="filterItems('all')">Todo</button>
-    <button class="filter-btn" onclick="filterItems('active')">Active</button>
-    <button class="filter-btn" onclick="filterItems('chic')">Chic</button>
-    <button class="filter-btn" onclick="filterItems('swim')">Swimwear</button>
+    <button class="filter-btn active" onclick="filterItems(event, 'all')">Todo</button>
+    <button class="filter-btn" onclick="filterItems(event, 'active')">Active</button>
+    <button class="filter-btn" onclick="filterItems(event, 'chic')">Chic</button>
+    <button class="filter-btn" onclick="filterItems(event, 'swim')">Swimwear</button>
   </div>
 
   <main class="grid" id="productGrid"></main>
 
   <script>
-    // Configura tu número de WhatsApp (código país + número, sin espacios ni '+')
-    const WHATSAPP_NUMBER = "59167551903";
+    // Reemplaza con tu número de WhatsApp real (ej. "59170000000")
+    const WHATSAPP_NUMBER = "59100000000";
 
     const products = [
       {
@@ -265,7 +263,6 @@
 
     function selectSize(productId, size) {
       selectedSizes[productId] = size;
-      const activeFilter = document.querySelector('.filter-btn.active').textContent.toLowerCase();
       applyCurrentFilter();
     }
 
@@ -276,7 +273,7 @@
       else renderProducts(products.filter(p => p.cat.toLowerCase() === text));
     }
 
-    function filterItems(category) {
+    function filterItems(event, category) {
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
 
@@ -296,7 +293,6 @@
       window.open(url, '_blank');
     }
 
-    // Inicializar
     renderProducts(products);
   </script>
 </body>
