@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active & Chic | Catálogo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mint: #7ef8c8;
+      --mint-dark: #20c997;
+      --black: #111111;
+      --bg: #f8faf9;
+      --card-bg: #ffffff;
+      --text-muted: #666666;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--black);
+      padding-bottom: 90px;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 16px 12px;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e9e7;
+    }
+
+    .logo-badge {
+      display: inline-block;
+      border: 2px solid var(--black);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      background: #f0fdf8;
+      color: var(--black);
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(126, 248, 200, 0.3);
+    }
+
+    header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Filtros por Categoría */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 12px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .filter-btn {
+      border: 1px solid #d3dcd7;
+      background: #ffffff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+      background: var(--black);
+      color: #ffffff;
+      border-color: var(--black);
+    }
+
+    /* Grilla de Productos */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #edf2ef;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #e9ecef;
+    }
+
+    .card-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .card-price {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .size-selector {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .size-btn {
+      border: 1px solid #ccc;
+      background: #fff;
+      font-size: 0.7rem;
+      padding: 3px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .size-btn.selected {
+      background: var(--mint);
+      border-color: var(--mint-dark);
+      font-weight: 700;
+    }
+
+    .btn-wsp {
+      width: 100%;
+      background: var(--black);
+      color: #ffffff;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-wsp:hover {
+      background: #25d366;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-badge">ACTIVE & CHIC</div>
+    <p>Athleisure & Elegancia Urbana</p>
+  </header>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterItems('all')">Todo</button>
+    <button class="filter-btn" onclick="filterItems('active')">Active</button>
+    <button class="filter-btn" onclick="filterItems('chic')">Chic</button>
+    <button class="filter-btn" onclick="filterItems('swim')">Swimwear</button>
+  </div>
+
+  <main class="grid" id="productGrid"></main>
+
+  <script>
+    // Configura tu número de WhatsApp (código país + número, sin espacios ni '+')
+    const WHATSAPP_NUMBER = "59100000000";
+
+    const products = [
+      {
+        id: 1,
+        name: "Blazer Oversize Sastrado",
+        cat: "chic",
+        price: "Bs. 220",
+        img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80",
+        sizes: ["S", "M", "L"]
+      },
+      {
+        id: 2,
+        name: "Set Seamless Top + Legging",
+        cat: "active",
+        price: "Bs. 170",
+        img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=80",
+        sizes: ["S", "M"]
+      },
+      {
+        id: 3,
+        name: "Enterizo Swim Mint Minimal",
+        cat: "swim",
+        price: "Bs. 150",
+        img: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=400&q=80",
+        sizes: ["S", "M", "L"]
+      },
+      {
+        id: 4,
+        name: "Crop Top Deportivo Rib",
+        cat: "active",
+        price: "Bs. 85",
+        img: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400&q=80",
+        sizes: ["XS", "S", "M"]
+      }
+    ];
+
+    const selectedSizes = {};
+
+    function renderProducts(items) {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = "";
+
+      items.forEach(p => {
+        if (!selectedSizes[p.id]) selectedSizes[p.id] = p.sizes[0];
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" class="card-img">
+          <div class="card-body">
+            <div>
+              <div class="card-title">${p.name}</div>
+              <div class="card-price">${p.price}</div>
+              <div class="size-selector">
+                ${p.sizes.map(size => `
+                  <button class="size-btn ${selectedSizes[p.id] === size ? 'selected' : ''}" 
+                          onclick="selectSize(${p.id}, '${size}')">${size}</button>
+                `).join('')}
+              </div>
+            </div>
+            <button class="btn-wsp" onclick="sendOrder(${p.id})">
+              Pedir por WhatsApp
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function selectSize(productId, size) {
+      selectedSizes[productId] = size;
+      const activeFilter = document.querySelector('.filter-btn.active').textContent.toLowerCase();
+      applyCurrentFilter();
+    }
+
+    function applyCurrentFilter() {
+      const activeBtn = document.querySelector('.filter-btn.active');
+      const text = activeBtn.innerText.toLowerCase();
+      if (text === 'todo') renderProducts(products);
+      else renderProducts(products.filter(p => p.cat.toLowerCase() === text));
+    }
+
+    function filterItems(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if (category === 'all') {
+        renderProducts(products);
+      } else {
+        renderProducts(products.filter(p => p.cat === category));
+      }
+    }
+
+    function sendOrder(productId) {
+      const p = products.find(item => item.id === productId);
+      const size = selectedSizes[productId];
+      const message = `¡Hola Active & Chic! Me interesa pedir:\n- Prenda: ${p.name}\n- Talla: ${size}\n- Precio: ${p.price}\n\n¿Tienen disponibilidad?`;
+      
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // Inicializar
+    renderProducts(products);
+  </script>
+</body>
+</html>
